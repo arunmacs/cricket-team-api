@@ -47,7 +47,7 @@ app.post("/players/", async (Request, Response) => {
   Response.send("Player Added to Team");
 });
 
-//API -3: GET specific(using player_id) player in the team;
+//API -3:GET specific(using player_id) player in the team;
 
 app.get("/players/:playerId/", async (Request, Response) => {
   const { playerId } = Request.params;
@@ -60,7 +60,7 @@ app.get("/players/:playerId/", async (Request, Response) => {
   Response.send(player);
 });
 
-//API -4: PUT Updates player details in the team(database)
+//API -4:PUT Updates player details in the team(database)
 
 app.put("/players/:playerId/", async (Request, Response) => {
   const { playerId } = Request.params;
@@ -78,7 +78,7 @@ app.put("/players/:playerId/", async (Request, Response) => {
   Response.send("Player Details Updated");
 });
 
-//API -5: DELETE player details from team(database)
+//API -5:DELETE player details from team(database)
 
 app.delete("/players/:playerId/", async (Request, Response) => {
   const { playerId } = Request.params;
