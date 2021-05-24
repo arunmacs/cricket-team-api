@@ -24,6 +24,15 @@ const initDBAndServer = async () => {
 
 initDBAndServer();
 
+const convertJsonResponseToObj = (jsonResponse) => {
+  return {
+    playerId: jsonResponse.player_id,
+    playerName: jsonResponse.player_name,
+    jerseyNumber: jsonResponse.jersey_number,
+    role: jsonResponse.role,
+  };
+};
+
 //API -1: GET list of all players in the team;
 
 app.get("/players/", async (Request, Response) => {
@@ -32,9 +41,12 @@ app.get("/players/", async (Request, Response) => {
     FROM cricket_team
     ORDER BY player_id ASC;`;
   const playersList = await db.all(getAllPlayersQuery);
-  Response.send(playersList);
+  Response.send(
+    playersList.map((obj) => {
+      convertJsonResponseToObj(obj);
+    })
+  );
 });
-
 //API -2: POST Creates a new player in the team(database),player_id is auto-incremented
 
 app.post("/players/", async (Request, Response) => {
@@ -57,7 +69,8 @@ app.get("/players/:playerId/", async (Request, Response) => {
     FROM cricket_team
     WHERE player_id = ${playerId};`;
   const player = await db.get(getPlayerQuery);
-  Response.send(player);
+  //console.log(typeof player);
+  Response.send(convertJsonResponseToObj(player));
 });
 
 //API -4:PUT Updates player details in the team(database)
