@@ -42,9 +42,7 @@ app.get("/players/", async (Request, Response) => {
     ORDER BY player_id ASC;`;
   const playersList = await db.all(getAllPlayersQuery);
   Response.send(
-    playersList.map((obj) => {
-      convertJsonResponseToObj(obj);
-    })
+    playersList.map((eachObj) => convertJsonResponseToObj(eachObj))
   );
 });
 //API -2: POST Creates a new player in the team(database),player_id is auto-incremented
