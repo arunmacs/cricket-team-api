@@ -29,7 +29,8 @@ initDBAndServer();
 app.get("/players/", async (Request, Response) => {
   const getAllPlayersQuery = `
     SELECT * 
-    FROM cricket_team;`;
+    FROM cricket_team
+    ORDER BY player_id ASC;`;
   const playersList = await db.all(getAllPlayersQuery);
   Response.send(playersList);
 });
@@ -54,8 +55,7 @@ app.get("/players/:playerId/", async (Request, Response) => {
   const getPlayerQuery = `
     SELECT * 
     FROM cricket_team
-    WHERE player_id = ${playerId}
-    ORDER BY player_id ASC;`;
+    WHERE player_id = ${playerId};`;
   const player = await db.get(getPlayerQuery);
   Response.send(player);
 });
